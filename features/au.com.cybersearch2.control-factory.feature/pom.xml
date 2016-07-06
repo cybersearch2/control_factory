@@ -1,0 +1,11 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>au.com.cybersearch2</groupId>
+        <artifactId>control-factory.features</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>au.com.cybersearch2.control_factory.feature</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>eclipse-feature</packaging>
+</project>

@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Unittests
+Bundle-SymbolicName: control-factory.unittests;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
