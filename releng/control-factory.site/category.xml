@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="au.com.cybersearch2.control_factory.feature" version="0.0.0">
+      <category name="au.com.cybersearch2.control_factory.category"/>
+   </feature>
+   <feature id="au.com.cybersearch2.control_factory.feature.source" version="0.0.0">
+      <category name="au.com.cybersearch2.control_factory.source.category"/>
+   </feature>
+   <category-def name="au.com.cybersearch2.control_factory.category" label="Control Factory Repository">
+      <description>
+         Control Factory Repository
+      </description>
+   </category-def>
+   <category-def name="au.com.cybersearch2.control_factory.source.category" label="Control Factory Repository (Sources)">
+      <description>
+         Control Factory Repository (Sources)
+      </description>
+   </category-def>
+</site>

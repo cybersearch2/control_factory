@@ -8,7 +8,9 @@
     <artifactId>au.com.cybersearch2.control_factory</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
-
+    <properties>
+        <maven.deploy.skip>false</maven.deploy.skip>
+    </properties>
     <build>
       <plugins>
        <plugin>

@@ -11,6 +11,7 @@
     </parent>
 
     <modules>
+        <module>control-factory.site</module>
         <module>control-factory.target</module>
     </modules>
 </project>

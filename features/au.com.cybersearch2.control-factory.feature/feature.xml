@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="au.com.cybersearch2.control_factory.feature"
-      label="Feature"
+      label="Control Factory Feature"
       version="1.0.1.qualifier"
       provider-name="Cybersearch2 Pty Ltd">
 
@@ -14,7 +14,7 @@
    </copyright>
 
    <license url="http://www.example.com/license">
-    This program is free software: you can redistribute it and/or modify
+      This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version. See http://www.gnu.org/licenses/
