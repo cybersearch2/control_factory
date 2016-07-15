@@ -16,19 +16,12 @@
   <maven.deploy.skip>true</maven.deploy.skip>
   <local.deploy.id>pdrone.babe7962-c13a-4c05-88c0-f0803b93d795</local.deploy.id>
   <local.deploy.url>http://MicroServer:8098/maven/babe7962-c13a-4c05-88c0-f0803b93d795</local.deploy.url>
-  <local-repo.id>pdrone.Test</local-repo.id>
-  <local-repo.url>http://MicroServer:8098/p2/control-factory/</local-repo.url>
  </properties>
 
  <repositories>
   <repository>
    <id>mars-repo</id>
    <url>${mars-repo.url}</url>
-   <layout>p2</layout>
-  </repository>
-  <repository>
-   <id>${local-repo.id}</id>
-   <url>${local-repo.url}</url>
    <layout>p2</layout>
   </repository>
  </repositories>
