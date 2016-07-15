@@ -136,7 +136,7 @@ public class CustomDialog<T extends CustomControls>  extends Dialog implements D
     protected Control createDialogArea(Composite parent) 
     {   // Creates a composite containing controls to display above the Button Bar.
         // The DialogHandler interface allows for exiting and resizing the dialog
-        return customControls.createDialogArea(parent, this);
+        return customControls.createControls(parent, this);
     }
 
     /**
@@ -155,7 +155,7 @@ public class CustomDialog<T extends CustomControls>  extends Dialog implements D
                 return dialogBase.createButton(parent, id, label, defaultButton);
             }
         };
-        if (!customControls.createButtonsForButtonBar(parent, buttonFactory, this))
+        if (!customControls.createBarButtons(parent, buttonFactory, this))
             dialogBase.createButtonsForButtonBar(parent);
     }
 
@@ -179,7 +179,7 @@ public class CustomDialog<T extends CustomControls>  extends Dialog implements D
     @Override
     protected void okPressed() 
     {
-        if (customControls.defaultPressed(this))
+        if (customControls.defaultSelect(this))
             dialogBase.okPressed();
     }
 

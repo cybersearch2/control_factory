@@ -5,6 +5,7 @@ Bundle-SymbolicName: au.com.cybersearch2.control_factory;singleton:=true
 Bundle-Version: 1.0.1.qualifier
 Bundle-Vendor: Cybersearch2 Pty Ltd
 Export-Package: au.com.cybersearch2.controls,
+ au.com.cybersearch2.dialogs,
  au.com.cybersearch2.statusbar.controls
 Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="1.1.100.v20150407-1430",
  javax.inject,

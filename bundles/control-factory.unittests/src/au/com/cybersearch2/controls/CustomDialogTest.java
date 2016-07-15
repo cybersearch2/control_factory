@@ -47,7 +47,7 @@ public class CustomDialogTest
         Composite composite = mock(Composite.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.createDialogArea(parent, underTest)).thenReturn(composite);
+        when(customControls.createControls(parent, underTest)).thenReturn(composite);
         assertThat(underTest.createDialogArea(parent)).isEqualTo(composite);
         assertThat(underTest.title).isEqualTo("Title");
     }
@@ -63,10 +63,10 @@ public class CustomDialogTest
         DialogBase dialogBase = mock(DialogBase.class);
         when(dialogBase.createButton(parent, 123, "123", false)).thenReturn(mock(Button.class));
         underTest.dialogBase = dialogBase;
-        when(customControls.createButtonsForButtonBar(eq(parent), isA(ButtonFactory.class), eq(underTest))).thenReturn(true);
+        when(customControls.createBarButtons(eq(parent), isA(ButtonFactory.class), eq(underTest))).thenReturn(true);
         underTest.createButtonsForButtonBar(parent);
         ArgumentCaptor<ButtonFactory> buttonFactoryCaptor = ArgumentCaptor.forClass(ButtonFactory.class);
-        verify(customControls).createButtonsForButtonBar(eq(parent), buttonFactoryCaptor.capture(), eq(underTest));
+        verify(customControls).createBarButtons(eq(parent), buttonFactoryCaptor.capture(), eq(underTest));
         assertThat(buttonFactoryCaptor.getValue().buttonInstance(parent, 123, "123", false)).isNotNull();
         verify(dialogBase).createButton(parent, 123, "123", false);
     }
@@ -81,7 +81,7 @@ public class CustomDialogTest
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
-        when(customControls.createButtonsForButtonBar(eq(parent), isA(ButtonFactory.class), eq(underTest))).thenReturn(false);
+        when(customControls.createBarButtons(eq(parent), isA(ButtonFactory.class), eq(underTest))).thenReturn(false);
         underTest.createButtonsForButtonBar(parent);
         verify(dialogBase).createButtonsForButtonBar(parent);
     }
@@ -109,7 +109,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(true);
+        when(customControls.defaultSelect(underTest)).thenReturn(true);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
         underTest.okPressed();
@@ -123,7 +123,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(false);
+        when(customControls.defaultSelect(underTest)).thenReturn(false);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
         underTest.okPressed();
@@ -137,7 +137,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(true);
+        when(customControls.defaultSelect(underTest)).thenReturn(true);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
         underTest.dismissDialog();
@@ -151,7 +151,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(true);
+        when(customControls.defaultSelect(underTest)).thenReturn(true);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
         underTest.exitDialog(99);
@@ -166,7 +166,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(true);
+        when(customControls.defaultSelect(underTest)).thenReturn(true);
         DialogBase dialogBase = mock(DialogBase.class);
         Shell shell = mock(Shell.class);
         when(dialogBase.getShell()).thenReturn(shell);
@@ -184,7 +184,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(true);
+        when(customControls.defaultSelect(underTest)).thenReturn(true);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
         UISynchronize sync = mock(UISynchronize.class);
@@ -202,7 +202,7 @@ public class CustomDialogTest
         Shell parentShell = mock(Shell.class);
         CustomControls customControls = mock(CustomControls.class);
         CustomDialog underTest = new CustomDialog(parentShell, "Title", customControls);
-        when(customControls.defaultPressed(underTest)).thenReturn(true);
+        when(customControls.defaultSelect(underTest)).thenReturn(true);
         DialogBase dialogBase = mock(DialogBase.class);
         underTest.dialogBase = dialogBase;
         UISynchronize sync = mock(UISynchronize.class);

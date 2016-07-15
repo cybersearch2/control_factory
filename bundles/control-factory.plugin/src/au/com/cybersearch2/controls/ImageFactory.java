@@ -54,20 +54,35 @@ public class ImageFactory
      * Since the resources are shared and reference counted, they should never be disposed
      * directly. */
     private ResourceManager resourceManager;
+    /** Resource Bundle containing images */ 
+    private Bundle resourceBundle;
+    
     Map<Class<?>, TypeMappingFactory<?>> customFactoryMap;
 
     /** Widget toolkit abstract to synchronize back into the UI-Thread from other threads */
     @Inject
     UISynchronize sync;
 
+    /**
+     * Construct ImageFactory object
+     */
     public ImageFactory()
     {
         customFactoryMap = new HashMap<Class<?>, TypeMappingFactory<?>>();
     }
-    
+
+    /**
+     * Set Bundle containing images
+     * @param resourceBundle Bundle
+     */
+    public void setResourceBundle(Bundle resourceBundle)
+    {
+        this.resourceBundle = resourceBundle;
+    }
+
     /**
      * Returns image for given image file path
-     * @param imagePath A valid file system path on the local file system
+     * @param presence A valid file system path on the local file system
      * @return Image object
      */
     public Image getImage(String imagePath)
@@ -77,11 +92,20 @@ public class ImageFactory
         return getResourceManager().createImage(descriptor);
     }
 
+    /**
+     * Register custom image factory which maps objects to images
+     * @param customFactory The custom factory object
+     */
     public void registerCustomFactory(TypeMappingFactory<?> customFactory)
     {
         customFactoryMap.put(customFactory.getFactoryClass(), customFactory);
     }
- 
+
+    /**
+     * Returns image mapped to given objecgt
+     * @param object The object to map
+     * @return Image object
+     */
     public Image getMappedImage(Object object)
     {
         TypeMappingFactory<?> customFactory = customFactoryMap.get(object.getClass());
@@ -90,26 +114,6 @@ public class ImageFactory
         return null;
     }
     
-    /**
-     * Returns image for given chat presence
-     * @param presence User presence, online, away etc
-     * @return Image object
-     */
-    /*
-    public Image getImage(Presence presence)
-    {
-        String imagePath = "";
-        switch (presence)
-        {
-        case online: imagePath = "icons/online.gif"; break;
-        case away: imagePath = "icons/away.gif"; break;
-        case dnd: imagePath = "icons/dnd.gif"; break;
-        case offline: imagePath = "icons/offline.gif"; break;
-        case deleted: imagePath = "icons/deleted.gif"; break;
-        }
-        return getImage(imagePath);
-    }
-*/
     /**
      * Dispose all image resources
      */
@@ -152,7 +156,11 @@ public class ImageFactory
      */
     private ImageDescriptor createImageDescriptor(String imagePath) 
     {
-        Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+        Bundle bundle = null;
+        if (resourceBundle != null)
+            bundle = resourceBundle;
+        else
+            bundle = FrameworkUtil.getBundle(this.getClass());
         URL url = FileLocator.find(bundle, new Path(imagePath), null);
         return ImageDescriptor.createFromURL(url);
     }

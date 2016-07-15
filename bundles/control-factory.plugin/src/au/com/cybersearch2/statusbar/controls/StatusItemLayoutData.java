@@ -53,6 +53,7 @@ public class StatusItemLayoutData extends LabelLayoutData
         gc.setFont(parent.getFont());
         FontMetrics fontMetrics = gc.getFontMetrics();
         String text = specification.getText();
+        Image image = specification.getImage();
         if (specification.getWidth() > 0) 
             this.widthHint = specification.getWidth() * fontMetrics.getAverageCharWidth();
         else 
@@ -60,10 +61,9 @@ public class StatusItemLayoutData extends LabelLayoutData
             this.widthHint = label.getLeftMargin() + label.getRightMargin(); 
             if ((text != null) && !text.isEmpty())
                 this.widthHint += gc.textExtent(text).x;
-            Image image = specification.getImage();
-            if (image != null)
-                this.widthHint += image.getBounds().width + 5;
         }
+        if (image != null)
+            this.widthHint += image.getBounds().width + 5;
         gc.dispose();
         heightHint = fontMetrics.getHeight();
     }

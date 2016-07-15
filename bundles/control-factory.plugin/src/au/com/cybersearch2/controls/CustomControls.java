@@ -49,7 +49,7 @@ public abstract class CustomControls
      * @param dialogHandler Handler for exiting and resizing the dialog
      * @return Control object containing all Login controls
      */
-    abstract public Control createDialogArea(Composite parent, DialogHandler dialogHandler); 
+    abstract public Control createControls(Composite parent, DialogHandler dialogHandler); 
 
     /**
      * Create Buttons For Button Bar. 
@@ -59,7 +59,7 @@ public abstract class CustomControls
      * @param dialogHandler Handler for exiting and resizing the dialog
      * @return flag set true if custom buttons created
      */
-    protected boolean createButtonsForButtonBar(Composite parent, CustomDialog.ButtonFactory buttonFactory, DialogHandler dialogHandler) 
+    protected boolean createBarButtons(Composite parent, CustomDialog.ButtonFactory buttonFactory, DialogHandler dialogHandler) 
     {
         return false;
     }
@@ -69,7 +69,7 @@ public abstract class CustomControls
      * @param dialogHandler Handler for exiting and resizing the dialog
      * @return flag set true if dialog should be dismissed
      */
-    public boolean defaultPressed(DialogHandler dialogHandler)
+    public boolean defaultSelect(DialogHandler dialogHandler)
     {
         return true;
     }
