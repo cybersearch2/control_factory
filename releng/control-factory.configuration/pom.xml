@@ -81,11 +81,11 @@
 				<goal>plugin-source</goal>
 			</goals>
 		</execution>
-		<configuration>
-		    <!-- Using Package Drone "Eclipse Source Bundle" aspect which " creates Eclipse Source Bundles from Maven source code attachments" --> 
-		    <sourceBundle>false</sourceBundle>
-		</configuration>
 	</executions>
+	<configuration>
+	    <!-- Using Package Drone "Eclipse Source Bundle" aspect which " creates Eclipse Source Bundles from Maven source code attachments" --> 
+	    <sourceBundle>false</sourceBundle>
+	</configuration>
    </plugin>
    <plugin>
 		<groupId>org.eclipse.tycho</groupId>
