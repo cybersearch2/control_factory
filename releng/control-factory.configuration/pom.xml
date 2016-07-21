@@ -11,7 +11,7 @@
   <tycho-extras.version>0.25.0</tycho-extras.version>
   <felix.version>3.0.1</felix.version>
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  <eclipse-repo.url>http://download.eclipse.org/eclipse/updates/4.5</eclipse-repo.url>
+  <eclipse.repo.url>http://download.eclipse.org/eclipse/updates/4.5</eclipse.repo.url>
   <!-- Skip the deployment here, submodules can override this property -->
   <maven.deploy.skip>true</maven.deploy.skip>
   <release.deploy.id>pdrone.babe7962-c13a-4c05-88c0-f0803b93d795</release.deploy.id>
