@@ -2,7 +2,7 @@
 
 Eclipse plugin SWT widget factory
 
-For information on Control Factory, go to our [support site] (www.cybersearch2.com.au/eclipse).
+For information on Control Factory, go to our [support site] (http://cybersearch2.com.au/eclipse).
 
 This plugin is a spin off from the development of the Cybertete Rich Client Platform (RCP) Instant Messaging Client
 which is a research project into how to utilize the latest E4 technologies. The plugin facilitates unit testing
