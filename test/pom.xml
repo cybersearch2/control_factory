@@ -1,13 +1,13 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>control-factory.test</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>au.com.cybersearch2</groupId>
         <artifactId>control-factory.root</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.2.1-SNAPSHOT</version>
     </parent>
     <properties>
       <repo.url>file:/${basedir}</repo.url>

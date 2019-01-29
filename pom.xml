@@ -1,14 +1,9 @@
 <project>
  <modelVersion>4.0.0</modelVersion>
+ <groupId>au.com.cybersearch2</groupId>
  <artifactId>control-factory.root</artifactId>
- <version>1.2.0-SNAPSHOT</version>
+ <version>1.2.1-SNAPSHOT</version>
  <packaging>pom</packaging>
- <parent>
-   <groupId>au.com.cybersearch2</groupId>
-   <artifactId>control-factory.configuration</artifactId>
-   <version>1.2.0-SNAPSHOT</version>
-   <relativePath>./releng/control-factory.configuration</relativePath>
- </parent>
   <url>http://cybersearch2.com.au</url>
   <licenses>
      <license>
@@ -17,12 +12,6 @@
        <distribution>repo</distribution>
      </license>
   </licenses>
-  <scm>
-	<url>https://github.com/andrew-bowley/control-factory</url>
-	<connection>scm:git:ssh://git@github.com/andrew-bowley/control-factory.git</connection>
-    <developerConnection>scm:git:ssh://git@gitserver:/opt/git/control-factory.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
   <developers>
     <developer>
       <id>andrew-bowley</id>
@@ -37,7 +26,42 @@
       <timezone>+10</timezone>
     </developer>
   </developers>
-  <modules>
+  <properties>
+      <tycho.version>0.25.0</tycho.version>
+      <tycho-extras.version>0.25.0</tycho-extras.version>
+      <felix.version>3.0.1</felix.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <eclipse.repo.url>http://download.eclipse.org/eclipse/updates/4.5</eclipse.repo.url>
+      <!-- Skip the deployment here, submodules can override this property -->
+      <maven.deploy.skip>true</maven.deploy.skip>
+      <release.repo.id>artifactory</release.repo.id>
+      <release.repo.url>http://micro-pro.cybersearch2.com/artifactory/generic-local</release.repo.url>
+      <snapshot.repo.id>artifactory</snapshot.repo.id>
+      <snapshot.repo.url>http://micro-pro.cybersearch2.com/artifactory/generic-local</snapshot.repo.url>
+  </properties>
+  <scm>
+	  <url>https://github.com/andrew-bowley/control-factory</url>
+	  <connection>scm:git:ssh://git@micro-pro.cybersearch2.com/control_factory.git</connection>
+    <tag>HEAD</tag>
+  </scm>
+  <repositories>
+      <repository>
+       <id>eclipse-repo</id>
+       <url>${eclipse.repo.url}</url>
+       <layout>p2</layout>
+      </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+        <id>${release.deploy.id}</id>
+        <url>${release.deploy.url}</url>
+    </repository>
+    <snapshotRepository>
+        <id>${snapshot.repo.id}</id>
+        <url>${snapshot.repo.url}</url>
+    </snapshotRepository> 
+  </distributionManagement>
+   <modules>
    <module>bundles</module>
    <module>features</module>
    <module>releng</module>
@@ -45,7 +69,83 @@
   </modules>
   <build>
    <plugins>
-    <plugin>
+  <!-- Skip the install, since we do not need the artifacts in our local mvn repo -->
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-install-plugin</artifactId>
+    <configuration>
+	  <skip>true</skip>
+    </configuration>
+  </plugin>
+   <plugin>
+    <groupId>org.eclipse.tycho</groupId>
+    <artifactId>tycho-maven-plugin</artifactId>
+    <version>${tycho.version}</version>
+    <extensions>true</extensions>
+   </plugin>
+   <!-- enable source feature generation -->
+   <plugin>
+	<groupId>org.eclipse.tycho.extras</groupId>
+	<artifactId>tycho-source-feature-plugin</artifactId>
+	<version>${tycho.version}</version>
+	<executions>
+		<execution>
+			<id>source-feature</id>
+			<phase>package</phase>
+			<goals>
+				<goal>source-feature</goal>
+			</goals>
+		</execution>
+	</executions>
+   </plugin>
+   <plugin>
+	   <groupId>org.eclipse.tycho</groupId>
+	   <artifactId>tycho-source-plugin</artifactId>
+	   <version>${tycho.version}</version>
+	   <executions>
+		   <execution>
+			   <id>plugin-source</id>
+			   <goals>
+				   <goal>plugin-source</goal>
+			   </goals>
+		   </execution>
+	   </executions>
+   </plugin>
+   <plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>tycho-p2-plugin</artifactId>
+		<version>${tycho.version}</version>
+		<executions>
+			<execution>
+				<id>attach-p2-metadata</id>
+				<phase>package</phase>
+				<goals>
+					<goal>p2-metadata</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+  <plugin>
+    <groupId>org.eclipse.tycho</groupId>
+    <artifactId>tycho-packaging-plugin</artifactId>
+    <version>${tycho.version}</version>
+    <dependencies>
+     <dependency>
+      <groupId>org.eclipse.tycho.extras</groupId>
+      <artifactId>tycho-buildtimestamp-jgit</artifactId>
+      <version>${tycho-extras.version}</version>
+    </dependency>
+   </dependencies>
+   <configuration>
+     <timestampProvider>jgit</timestampProvider>
+     <jgit.ignore>
+       pom.xml
+       target/
+    </jgit.ignore>
+    <jgit.dirtyWorkingTree>ignore</jgit.dirtyWorkingTree>
+   </configuration>
+ </plugin>
+ <plugin>
     <groupId>org.eclipse.tycho</groupId>
     <artifactId>target-platform-configuration</artifactId>
     <version>${tycho.version}</version>
@@ -54,7 +154,7 @@
         <artifact>
             <groupId>au.com.cybersearch2</groupId>
             <artifactId>control-factory.target</artifactId>
-            <version>1.2.0-SNAPSHOT</version>
+            <version>1.2.1-SNAPSHOT</version>
         </artifact>
     </target>     
     <environments>
@@ -89,5 +189,225 @@
     </configuration>
    </plugin>
   </plugins>
- </build>
+   <pluginManagement>
+	  <plugins>
+		  <plugin>
+			<artifactId>maven-scm-plugin</artifactId>
+			<version>1.11.1</version>
+			<configuration>
+			  <connectionType>connection</connectionType>
+			  <tag>eXPL-${project.version}</tag>
+			</configuration>
+		 </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <source>${project.java.version}</source>
+                <target>${project.java.version}</target>
+                <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
+          </plugin>
+          <plugin>
+             <groupId>org.codehaus.mojo</groupId>  
+             <artifactId>versions-maven-plugin</artifactId>  
+             <version>2.7</version>  
+          </plugin>     
+          <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-clean-plugin</artifactId>
+             <version>3.1.0</version>
+          </plugin>
+	        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <version>3.0.0-M1</version>
+          </plugin>
+				  <plugin>
+					  <artifactId>maven-resources-plugin</artifactId>
+					  <version>3.1.0</version>
+					  <configuration>
+		            <encoding>${project.build.sourceEncoding}</encoding>
+					  </configuration>
+				  </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+         </plugin>
+         <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-source-plugin</artifactId>
+             <version>3.0.1</version>
+         </plugin>       
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>3.0.0-M1</version>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.1.1</version>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M3</version>
+          </plugin>
+          <plugin>   
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <version>${felix.version}</version>
+            <extensions>true</extensions>
+         </plugin>
+		    </plugins>
+			</pluginManagement>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+        <configuration>
+            <show>public</show>
+            <author>true</author>
+            <version>true</version>
+            <doctitle><![CDATA[<h1>Control Factory Eclipse E4 plugin</h1>]]></doctitle>
+            <windowtitle>Control Factory API - Eclipse E4 Foundation Library to support testing classes containing SWT Widgets</windowtitle> 
+            <bottom>
+               This documentation is licensed by Andrew Bowley under the
+               &lt;a
+               href="http://www.gnu.org/licenses/" &gt;GPLv3 License.
+               &lt;/a&gt; 
+            </bottom>
+            <links>
+               <link>http://docs.oracle.com/javase/8/docs/api/</link>
+            </links>
+            <additionalparam>-tag inheritDoc:X</additionalparam>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+ <profiles>
+    <!-- SWT bundle used for unit testing depends on running platform. -->
+  <profile>
+    <id>32bit-windows</id>
+    <!-- via this activation the profile is automatically used when running in 32-bit Windows -->
+    <activation>
+      <os>
+        <arch>x86</arch>
+        <family>Windows</family>
+      </os>    
+    </activation>
+    <properties>
+      <swt.os.arch>win32.win32.x86</swt.os.arch>
+    </properties>
+  </profile>
+  <profile>
+    <id>64bit-windows</id>
+    <!-- via this activation the profile is automatically used when running in 64-bit Windows -->
+    <activation>
+      <os>
+        <arch>amd64</arch>
+        <family>Windows</family>
+      </os>    
+    </activation>
+     <properties>
+       <swt.os.arch>win32.win32.x86_64</swt.os.arch>
+    </properties>
+  </profile>
+  <profile>
+    <id>32bit-dos</id>
+    <!-- via this activation the profile is automatically used when running in 32-bit DOS -->
+    <activation>
+      <os>
+        <arch>x86</arch>
+        <family>dos</family>
+      </os>    
+    </activation>
+    <properties>
+      <swt.os.arch>win32.win32.x86</swt.os.arch>
+    </properties>
+  </profile>
+  <profile>
+    <id>64bit-dos</id>
+    <!-- via this activation the profile is automatically used when running in 64-bit DOS -->
+    <activation>
+      <os>
+        <arch>amd64</arch>
+        <family>dos</family>
+      </os>    
+    </activation>
+     <properties>
+      <swt.os.arch>win32.win32.x86_64</swt.os.arch>
+    </properties>
+  </profile>
+  <profile>
+    <id>32bit-linux</id>
+    <!-- via this activation the profile is automatically used when running in 32-bit Linux -->
+    <activation>
+      <os>
+        <arch>x86</arch>
+        <family>unix</family>
+      </os>    
+    </activation>
+    <properties>
+      <swt.os.arch>gtk.linux.x86</swt.os.arch>
+    </properties>
+  </profile>
+  <profile>
+    <id>64bit-linux</id>
+    <!-- via this activation the profile is automatically used when running in 64-bit Linux -->
+    <activation>
+      <os>
+        <arch>amd64</arch>
+        <family>unix</family>
+      </os>    
+    </activation>
+     <properties>
+      <swt.os.arch>gtk.linux.x86_64</swt.os.arch>
+    </properties>
+  </profile>
+    <profile>
+      <id>doclint-java8-disable</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.3</version>
+           </plugin>
+        </plugins>
+      </build>
+      <reporting>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <configuration>
+                <additionalparam>-Xdoclint:none</additionalparam>
+              </configuration>
+            </plugin>
+          </plugins>
+       </reporting>
+    </profile>
+ </profiles>
 </project>

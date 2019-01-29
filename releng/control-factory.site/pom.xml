@@ -4,10 +4,10 @@
     <parent>
         <groupId>au.com.cybersearch2</groupId>
         <artifactId>control-factory.releng</artifactId>
-        <version>1.2.0-SNAPSHOT</version>
+        <version>1.2.1-SNAPSHOT</version>
     </parent>
     <artifactId>control-factory.site</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
 	<packaging>eclipse-repository</packaging>
 	<properties>
 	  <maven.deploy.skip>false</maven.deploy.skip>

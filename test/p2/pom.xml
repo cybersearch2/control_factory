@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>au.com.cybersearch2</groupId>
     <artifactId>control-factory.test.repo</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Control Factory Test Repository</name>
     <pluginRepositories>
@@ -106,7 +106,7 @@
         <plugin>
             <groupId>org.reficio</groupId>
             <artifactId>p2-maven-plugin</artifactId>
-            <version>1.2.0-SNAPSHOT</version>
+            <version>1.3.0</version>
         </plugin>
 	  </plugins>
 	</pluginManagement>
