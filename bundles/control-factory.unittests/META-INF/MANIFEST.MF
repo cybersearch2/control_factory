@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Unittests
+Bundle-SymbolicName: control-factory.unittests
+Bundle-Version: 1.2.1.qualifier
+Bundle-Vendor: Cybersearch2 Pty Ltd
+Fragment-Host: au.com.cybersearch2.control_factory;bundle-version="1.2.1"
+Automatic-Module-Name: control-factory.unittests
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.mockito;bundle-version="2.13.0",
+ org.objenesis;bundle-version="2.6.0",
+ org.hamcrest.core;bundle-version="1.3.0",
+ org.eclipse.emf.common;bundle-version="2.14.0",
+ org.junit;bundle-version="4.12.0",
+ org.assertj;bundle-version="1.7.1"
