@@ -17,7 +17,7 @@ package au.com.cybersearch2.controls;
 
 import static org.mockito.Mockito.*;
 
-import static org.fest.assertions.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.window.Window;

@@ -8,18 +8,6 @@
     <artifactId>control-factory.unittests</artifactId>
     <version>1.2.1-SNAPSHOT</version>
     <packaging>eclipse-test-plugin</packaging>
-    <properties>
-        <test-repo>${project.baseUri}../../test/p2/target/repository</test-repo>
-    </properties>
-
-    <repositories>
-      <repository>
-        <id>third-party-plugins</id>
-        <layout>p2</layout>
-        <url>${test-repo}</url>
-      </repository>
-    </repositories>
-    
  <build>
   <plugins>
     <plugin>
@@ -27,49 +15,49 @@
     <artifactId>target-platform-configuration</artifactId>
     <version>${tycho.version}</version>
     <configuration>
-      <target> 
+       <target> 
+        <artifact>
+            <groupId>au.com.cybersearch2</groupId>
+            <artifactId>control-factory.target</artifactId>
+            <version>1.2.1-SNAPSHOT</version>
+        </artifact>
         <artifact>
            <groupId>au.com.cybersearch2</groupId>
             <artifactId>control-factory.unittests.target</artifactId>
             <version>1.2.1-SNAPSHOT</version>
         </artifact>
-      </target>     
-      <dependency-resolution>
+      </target>  
+       <dependency-resolution>
          <extraRequirements>
             <requirement>
                <type>p2-installable-unit</type>
-               <id>org.eclipse.swt.org.eclipse.swt.${swt.os.arch}</id>
-               <versionRange>4.3.0</versionRange>
-            </requirement>
-             <requirement>
-               <type>p2-installable-unit</type>
-               <id>org.easytesting.fest-assert-core</id>
-               <versionRange>2.0.0.0M10</versionRange>
+               <id>org.assertj</id>
+               <versionRange>1.7.1</versionRange>
             </requirement>
             <requirement>
                <type>p2-installable-unit</type>
-               <id>org.mockito.mockito-core</id>
-               <versionRange>1.10.19</versionRange>
+               <id>org.mockito</id>
+               <versionRange>2.13.0</versionRange>
+            </requirement>
+            <requirement>
+               <type>p2-installable-unit</type>
+               <id>net.bytebuddy.byte-buddy</id>
+               <versionRange>1.7.9</versionRange>
+            </requirement>
+             <requirement>
+               <type>p2-installable-unit</type>
+               <id>net.bytebuddy.byte-buddy-agent</id>
+               <versionRange>1.7.9</versionRange>
             </requirement>
             <requirement>
                <type>p2-installable-unit</type>
                <id>org.hamcrest.core</id>
-               <versionRange>1.1.0</versionRange>
-            </requirement>
-            <requirement>
-               <type>p2-installable-unit</type>
-               <id>org.hamcrest</id>
-               <versionRange>0.0.0</versionRange>
-            </requirement>
-            <requirement>
-               <type>p2-installable-unit</type>
-               <id>org.easytesting.fest-util</id>
-               <versionRange>1.2.5</versionRange>
+               <versionRange>1.3.0</versionRange>
             </requirement>
             <requirement>
                <type>p2-installable-unit</type>
                <id>org.objenesis</id>
-               <versionRange>2.1.0</versionRange>
+               <versionRange>2.6.0</versionRange>
             </requirement>
          </extraRequirements>
       </dependency-resolution>

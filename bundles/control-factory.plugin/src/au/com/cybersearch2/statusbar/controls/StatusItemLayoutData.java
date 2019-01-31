@@ -55,7 +55,7 @@ public class StatusItemLayoutData extends LabelLayoutData
         String text = specification.getText();
         Image image = specification.getImage();
         if (specification.getWidth() > 0) 
-            this.widthHint = specification.getWidth() * fontMetrics.getAverageCharWidth();
+            this.widthHint = (int) (specification.getWidth() * fontMetrics.getAverageCharacterWidth());
         else 
         {
             this.widthHint = label.getLeftMargin() + label.getRightMargin(); 
