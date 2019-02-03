@@ -50,22 +50,38 @@ public class StatusItemLayoutData extends LabelLayoutData
     {
         Composite parent = label.getParent();
         GC gc = new GC(parent);
-        gc.setFont(parent.getFont());
+        try
+        {
+            gc.setFont(parent.getFont());
+            init(label, specification, gc);
+        }
+        finally
+        {
+            gc.dispose();
+        }
+    }
+
+    /**
+     * Create StatusItemLayoutData object
+     * @param label Custom Label
+     * @param specification Custom Label specification
+     * @param gc GC object with font set same as label
+     */
+    public void init(CLabel label,  CustomLabelSpec specification, GC gc)
+    {
         FontMetrics fontMetrics = gc.getFontMetrics();
         String text = specification.getText();
-        Image image = specification.getImage();
         if (specification.getWidth() > 0) 
-            this.widthHint = (int) (specification.getWidth() * fontMetrics.getAverageCharacterWidth());
+            this.widthHint = specification.getWidth() * fontMetrics.getAverageCharWidth();
         else 
         {
             this.widthHint = label.getLeftMargin() + label.getRightMargin(); 
             if ((text != null) && !text.isEmpty())
                 this.widthHint += gc.textExtent(text).x;
         }
+        Image image = specification.getImage();
         if (image != null)
             this.widthHint += image.getBounds().width + 5;
-        gc.dispose();
         heightHint = fontMetrics.getHeight();
     }
-
 }

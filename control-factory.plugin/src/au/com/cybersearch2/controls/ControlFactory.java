@@ -447,11 +447,7 @@ public class ControlFactory
      */
     public int convertHeightInCharsToPixels(Composite parent, int count)
     {
-        GC gc = new GC(parent);
-        gc.setFont(parent.getFont());
-        FontMetrics fontMetrics = gc.getFontMetrics();
-        gc.dispose();
-        return fontMetrics.getHeight() * count;
+        return getFontMetrics(parent).getHeight() * count;
     }
 
 }

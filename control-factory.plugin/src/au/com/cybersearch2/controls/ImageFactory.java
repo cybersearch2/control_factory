@@ -15,23 +15,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/> */
 package au.com.cybersearch2.controls;
 
-import org.eclipse.jface.resource.ResourceManager;
-
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.swt.graphics.Image;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 
 /**
@@ -53,15 +43,11 @@ public class ImageFactory
      * Everything allocated through the registry should also be disposed through the registry.
      * Since the resources are shared and reference counted, they should never be disposed
      * directly. */
-    private ResourceManager resourceManager;
-    /** Resource Bundle containing images */ 
-    private Bundle resourceBundle;
     
     Map<Class<?>, TypeMappingFactory<?>> customFactoryMap;
 
-    /** Widget toolkit abstract to synchronize back into the UI-Thread from other threads */
     @Inject
-    UISynchronize sync;
+    ResourceTools resourceTools;
 
     /**
      * Construct ImageFactory object
@@ -69,15 +55,6 @@ public class ImageFactory
     public ImageFactory()
     {
         customFactoryMap = new HashMap<Class<?>, TypeMappingFactory<?>>();
-    }
-
-    /**
-     * Set Bundle containing images
-     * @param resourceBundle Bundle
-     */
-    public void setResourceBundle(Bundle resourceBundle)
-    {
-        this.resourceBundle = resourceBundle;
     }
 
     /**
@@ -89,7 +66,7 @@ public class ImageFactory
     {
         // An image descriptor is an object that knows how to create an SWT image.
         ImageDescriptor descriptor = createImageDescriptor(imagePath);
-        return getResourceManager().createImage(descriptor);
+        return resourceTools.getResourceManager().createImage(descriptor);
     }
 
     /**
@@ -119,34 +96,7 @@ public class ImageFactory
      */
     public void dispose() 
     {
-        // Garbage collect system resources
-        if (resourceManager != null) 
-        {
-            resourceManager.dispose();
-            resourceManager = null;
-        }
         customFactoryMap.clear();
-    }
-
-    /**
-     * Returns local Resource Manager
-     * @return ResourceManager object
-     */
-    protected ResourceManager getResourceManager() 
-    {
-        if (resourceManager == null)
-            sync.syncExec(new Runnable() {
-                
-                @Override
-                public void run() 
-                {
-                    // getResources() returns the ResourceManager for the current display. 
-                    // May only be called from a UI thread.
-                    ResourceManager resources = JFaceResources.getResources();
-                    resourceManager = new LocalResourceManager(resources);
-                }
-            });
-        return resourceManager;
     }
 
     /**
@@ -154,14 +104,8 @@ public class ImageFactory
      * @param imagePath Image path
      * @return ImageDescriptor object
      */
-    private ImageDescriptor createImageDescriptor(String imagePath) 
+    protected ImageDescriptor createImageDescriptor(String imagePath) 
     {
-        Bundle bundle = null;
-        if (resourceBundle != null)
-            bundle = resourceBundle;
-        else
-            bundle = FrameworkUtil.getBundle(this.getClass());
-        URL url = FileLocator.find(bundle, new Path(imagePath), null);
-        return ImageDescriptor.createFromURL(url);
+        return ImageDescriptor.createFromURL(resourceTools.path2url(imagePath));
     }
 }
