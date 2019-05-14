@@ -5,7 +5,7 @@
     <parent>
         <groupId>au.com.cybersearch2</groupId>
         <artifactId>control-factory.root</artifactId>
-        <version>1.3.0-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
     </parent>
     <artifactId>control-factory.site</artifactId>
 	  <packaging>eclipse-repository</packaging>
