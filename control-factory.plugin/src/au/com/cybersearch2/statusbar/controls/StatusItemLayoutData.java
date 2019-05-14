@@ -72,7 +72,7 @@ public class StatusItemLayoutData extends LabelLayoutData
         FontMetrics fontMetrics = gc.getFontMetrics();
         String text = specification.getText();
         if (specification.getWidth() > 0) 
-            this.widthHint = specification.getWidth() * fontMetrics.getAverageCharWidth();
+            this.widthHint = (int) (specification.getWidth() * fontMetrics.getAverageCharacterWidth());
         else 
         {
             this.widthHint = label.getLeftMargin() + label.getRightMargin(); 

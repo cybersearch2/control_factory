@@ -2,7 +2,7 @@
 <feature
       id="au.com.cybersearch2.control_factory.feature"
       label="Control Factory Feature"
-      version="1.2.1.qualifier"
+      version="1.3.0.qualifier"
       provider-name="Cybersearch2 Pty Ltd">
 
    <description url="http://www.cybersearch2.com.au">
